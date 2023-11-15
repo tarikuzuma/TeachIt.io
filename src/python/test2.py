@@ -50,22 +50,24 @@ for row in result:
         "sort_id": result.index(row) + 1,
         "upvotes": row[1],
         "downvotes": row[2],
-        "year": formatted_year
+        "date_upload": formatted_date
     }
 
     data_hot_temp_printables.append(row_data_hot_temp)
     data_hot_temp.append(row_data_hot_temp_hot)
 
 
-# Standard Epoch time
-epoch = datetime(1970, 1, 1)
+# Standard Epoch time is 1970-01-01 00:00:00
 '''
     Function to calculate the number of seconds since the epoch
     Multiplied by 1000000 to convert to microseconds
 '''
-def epoch_seconds(date):
-    td = date - epoch
-    return td.days * 86400 + td.seconds + (float(td.microseconds) / 1000000)
+def epoch_seconds(date_string):
+    date_format = "%Y-%m-%d"
+    epoch = datetime.strptime("1970-01-01", date_format)
+    given_date = datetime.strptime(date_string, date_format)
+    delta = given_date - epoch
+    return delta.days * 86400 + delta.seconds + delta.microseconds / 1e6
 
 # Function to calcualte the score of a post
 def score(upvotes, downvotes):
@@ -81,19 +83,13 @@ def hot(upvotes, downvotes, date):
     seconds = epoch_seconds(date) - 1134028003
     return round(sign * order + seconds / 45000, 7)
 
-# Loop through the data_hot_temp to change eyar to int and calculate the hotness score for each row
+# Loop through the data_hot_temp and calculate the hotness score for each row
 for data_hot_temp_item in data_hot_temp:
     print(data_hot_temp_item)
     # Check if "year" key exists and is a string
-    if "year" in data_hot_temp_item and isinstance(data_hot_temp_item["year"], str):
-        # Convert the "year" value to an integer
-        data_hot_temp_item["year"] = int(data_hot_temp_item["year"])
-        print(data_hot_temp_item["year"], type(data_hot_temp_item["year"]))
-        # Calculate the hotness score
-        data_hot_temp_item["hotness_score"] = hot(data_hot_temp_item["upvotes"], data_hot_temp_item["downvotes"], datetime(data_hot_temp_item["year"], 1, 1))
-        print(data_hot_temp_item["hotness_score"])
-    else:
-        print("No year key or not a string")
+    data_hot_temp_item["hotness_score"] = hot(data_hot_temp_item["upvotes"], data_hot_temp_item["downvotes"], data_hot_temp_item["date_upload"])
+    print(data_hot_temp_item["hotness_score"])
+
 
 # Sort the data_hot_temp by the hotness score
 hot_sorted = []
