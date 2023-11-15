@@ -2,30 +2,38 @@ from datetime import datetime, timedelta
 from math import log
 from math import sqrt
 
+# Standard Epoch time
 epoch = datetime(1970, 1, 1)
-
+'''
+    Function to calculate the number of seconds since the epoch
+    Multiplied by 1000000 to convert to microseconds
+'''
 def epoch_seconds(date):
     td = date - epoch
     return td.days * 86400 + td.seconds + (float(td.microseconds) / 1000000)
 
-def score(ups, downs):
-    return ups - downs
+# Function to calcualte the score of a post
+def score(upvotes, downvotes):
+    return upvotes - downvotes
 
-def hot(ups, downs, date):
-    s = score(ups, downs)
+'''
+    Function to calculate the Hotness Score of a post
+'''
+def hot(upvotes, downvotes, date):
+    s = score(upvotes, downvotes)
     order = log(max(abs(s), 1), 10)
     sign = 1 if s > 0 else -1 if s < 0 else 0
     seconds = epoch_seconds(date) - 1134028003
     return round(sign * order + seconds / 45000, 7)
 
-def _confidence(ups, downs):
-    n = ups + downs
+def _confidence(upvotes, downvotes):
+    n = upvotes + downvotes
 
     if n == 0:
         return 0
 
     z = 1.281551565545
-    p = float(ups) / n
+    p = float(upvotes) / n
 
     left = p + 1/(2*n)*z*z
     right = z*sqrt(p*(1-p)/n + z*z/(4*n*n))
@@ -33,11 +41,11 @@ def _confidence(ups, downs):
 
     return (left - right) / under
 
-def confidence(ups, downs):
-    if ups + downs == 0:
+def confidence(upvotes, downvotes):
+    if upvotes + downvotes == 0:
         return 0
     else:
-        return _confidence(ups, downs)
+        return _confidence(upvotes, downvotes)
 
 # Example usage
 upvotes = 100
