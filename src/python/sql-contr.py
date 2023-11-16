@@ -42,6 +42,9 @@ for row in result:
     print("Supposide Printables: ", row[0], row[1], row[2], total_votes, row[3], formatted_date, row[5])
     print("Actual Files: ", row_data)
 
+# Sorts data list into most downvotes.
+data.sort(key=lambda x: x['total_votes'])
+
 # Create a Pandas DataFrame from the data list
 df = pd.DataFrame(data)
 

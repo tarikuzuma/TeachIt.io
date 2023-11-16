@@ -3,3 +3,4 @@ pip install mysql-connector-python
 pip install flask
 npm install child_process
 npm install node-cmd
+pip install matplotlib

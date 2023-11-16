@@ -103,11 +103,12 @@ data_hot_final_printables =[]
 for row in hot_sorted:
     for row2 in data_hot_temp_printables:
         if row["sort_id"] == row2["sort_id"]:
-            print ("SAME ID FOR: ", row["sort_id"], row2["sort_id"])
+            print ("SAME ID FOR: ", row["hotness_score"], row2["sort_id"])
             data_hot_final_printables.append(row2)
 
 print ("Final data_hot_temp for data_hot_temp_final",data_hot_final_printables)
 
+'''
 # Create a Pandas DataFrame from the data list
 df = pd.DataFrame(data_hot_final_printables)
 
@@ -126,7 +127,7 @@ rendered_html = template.render(data=data_hot_final_printables)
 # Create a new file 'template_new.html' and write the rendered_html to that file
 with open('src/python/template.html', 'w') as new_file:
     new_file.write(rendered_html)
-
+'''
 # Close the cursor and connection
 mycursor.close()
 mydb.close()
