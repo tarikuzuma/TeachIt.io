@@ -28,7 +28,7 @@ result = mycursor.fetchall()
 data = []
 
 for row in result:
-    formatted_date = row[4].strftime('%Y-%m-%d')
+    formatted_date = row[4].strftime('%Y-%m-%d %H:%M:%S')
 
     total_votes = row[1] - row[2]
 

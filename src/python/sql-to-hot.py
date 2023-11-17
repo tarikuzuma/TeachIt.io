@@ -31,7 +31,7 @@ data_hot_temp_printables= []
 data_hot_temp = []
 
 for row in result:
-    formatted_date = row[4].strftime('%Y-%m-%d')
+    formatted_date = row[4].strftime('%Y-%m-%d %H:%M:%S')
     formatted_year = row[4].strftime('%Y')
 
     total_votes = row[1] - row[2]
@@ -63,8 +63,8 @@ for row in result:
     Multiplied by 1000000 to convert to microseconds
 '''
 def epoch_seconds(date_string):
-    date_format = "%Y-%m-%d"
-    epoch = datetime.strptime("1970-01-01", date_format)
+    date_format = "%Y-%m-%d %H:%M:%S"
+    epoch = datetime.strptime("1970-01-01 00:00:00", date_format)
     given_date = datetime.strptime(date_string, date_format)
     delta = given_date - epoch
     return delta.days * 86400 + delta.seconds + delta.microseconds / 1e6

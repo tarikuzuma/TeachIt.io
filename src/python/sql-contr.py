@@ -21,14 +21,14 @@ mycursor.execute("SELECT * FROM thread")
 # Fetch all the rows from the result set
 result = mycursor.fetchall()
 
-# BRUTE FORCEFULLY sorts the result by the highest number of upvotes hence "Top"
+# sorts results in most downvotes.
 result.sort(key=lambda row: row[2], reverse=True)
 
 # Prepare the data for HTML conversion
 data = []
 
 for row in result:
-    formatted_date = row[4].strftime('%Y-%m-%d')
+    formatted_date = row[4].strftime('%Y-%m-%d %H:%M:%S')
 
     total_votes = row[1] - row[2]
 
@@ -42,7 +42,7 @@ for row in result:
     print("Supposide Printables: ", row[0], row[1], row[2], total_votes, row[3], formatted_date, row[5])
     print("Actual Files: ", row_data)
 
-# Sorts data list into most downvotes.
+# BRUTE FORCEFULLY sorts the result by the highest number of downvotes hence "contr"
 data.sort(key=lambda x: x['total_votes'])
 
 # Create a Pandas DataFrame from the data list
