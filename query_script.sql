@@ -32,6 +32,7 @@ VALUES
 /*LIMIT TESTING*/
 INSERT into thread VALUES (169,168,1,'Mon Olarte','2023-12-11','Why is the sky blue?');
 Insert into thread Values (110, 100, 10, 'Liam Evans', '2023-12-12', 'Exploring the microbiomes role in human health');
+Insert into thread Values (10000, 10000, 0, 'Liam Evans', '2022-12-12', 'Exploring the microbiomes role in human health');
 
 DELETE FROM thread;
 
