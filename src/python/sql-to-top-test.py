@@ -5,7 +5,7 @@ import flask
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="8210909",
+    password="",
     port=3306,
     database="teachit"
 )
